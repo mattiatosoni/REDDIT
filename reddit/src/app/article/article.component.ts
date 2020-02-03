@@ -5,24 +5,31 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './article.component.html',
   styleUrls: ['./article.component.css']
 })
-import { Article } from './article.model'; //Non cancellare gli altri import
+import { Component, OnInit, HostBinding, Input } from '@angular/core'; //import Input
+import { Article } from './article.model'; //import article
 
+@Component({
+  selector: 'app-article',
+  templateUrl: './article.component.html',
+  styleUrls: ['./article.component.css']
+})
 export class ArticleComponent implements OnInit {
   @HostBinding('attr.class') cssClass = 'card';
-  article:Article
+  @Input() article:Article
 
   constructor() {
-    this.article = new Article('Angular 2','http://angular.io',10);
+    //L'article è popolato dall'@Input
   }
 
   voteUp(): Boolean {
-    this.article.votes += 1; //accediamo alla proprietà votes di article
-    return false; //Non propagare l'evento
+    this.article.voteUp();
+    return false;
   }
 
   voteDown():Boolean {
-    this.article.votes -= 1;
-    return false; //Non propagare l'evento
+    this.article.voteDown();
+    return false;
   }
-ngOnInit() {}
+
+  ngOnInit() {}
 }
